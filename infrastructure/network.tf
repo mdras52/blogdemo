@@ -138,13 +138,14 @@ resource "aws_security_group" "blog_db_sec_group" {
     security_groups = [aws_security_group.blog_sec_group_public.id]
   }
 
-  ingress {
-    description = "MYSQL Personal"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = [var.my_ip]
-  }
+# Aurora Serverless cannot be accessed publicly
+  # ingress {
+  #   description = "MYSQL Personal"
+  #   from_port   = 3306
+  #   to_port     = 3306
+  #   protocol    = "tcp"
+  #   cidr_blocks = [var.my_ip]
+  # }
 
   egress {
     from_port   = 0
