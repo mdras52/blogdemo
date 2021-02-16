@@ -1,0 +1,40 @@
+# this is for whitelisting security group for SSH, etc
+variable "my_ip" {
+  type    = string
+  default = "0.0.0.0/32"
+}
+
+variable "rds_master_username" {
+  type    = string
+  default = "master_user"
+}
+
+variable "rds_master_password" {
+  type    = string
+  default = "M@55TER_P@55W0RD{}{}{}"
+}
+
+variable "blog_key_pub" {
+  type    = string
+  default = "ssh-rsa BBBBBACLAKJSDLSKDJFA;SLKDJFA;DSLKFJA;LSKFJ...TLDR= foo@bar.local"
+}
+
+variable "zone_id" {
+  type    = string
+  default = "MSADKFKLAKDIR"
+}
+
+variable "site_name" {
+  type = string
+  default = "myblogfortheworldtoread878"
+}
+
+variable "domain_name" {
+  type    = string
+  default = "myblogfortheworldtoread878.com"
+}
+
+variable "url" {
+  type    = string
+  default = "http://myblogfortheworldtoread878.com"
+}

@@ -1,0 +1,5 @@
+variables.tf
+*.tfstate*
+*.lock*
+.terraform
+blog_setup_me.sh
