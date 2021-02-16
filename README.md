@@ -2,14 +2,19 @@
 
 This stack represents some realistic usages of Terraform and AWS for reference with some common patterns.
 
+Specifically, this stack will provision the required (outside of the few noted exceptions) resources in AWS along with executing setup code to install and host a Ghost blog on an AWS ec2 instance using a RDS Aurora serverless MySQL database for persistence.
+
+## Setup
+
+An AWS account should be created and credentials should be setup so that Terraform has the appropriate permissions to create the necessary resources.
+
+You will need Terraform 0.13+ installed.
+
+The infrastructure/variables.tf.sample file illustrates all the necessary configuration options that need to be specified for this to run appropriately. Copying that file to infrastructure/*.tf and replacing the placeholders is one way of specifying the parameters for this stack.
+
+Alternatively, these can be specified on the command line.  See https://www.terraform.io/docs/language/values/variables.html for more information on this.
+
 ## Usage
-
-Assuming an AWS account is created and credentials are setup that have appropriate  permissions to create the resources specified in the infrastructure directory:
-
-Download Terraform 0.13 + and install
-create an infrastructure/variables.tf file from the infrastructure/variables.tf.sample file
-
-Or alternatively, supply them on the command line
 
 The first time terraform is run, Terraform will need to be initialized with:
 `terraform init`
@@ -31,7 +36,6 @@ If you wish to permanently delete the AWS resources provisioned, run:
 `terraform destroy`
 
 See https://www.terraform.io/docs/cli/commands/index.html for more information on the Terraform CLI.
-
 
 ## Important
 This is intended to be informative, but not a complete configuration for a robust and secure web hosted blog.  Many considerations for security have been omitted for the sake of clarity of the demonstrated topics.
