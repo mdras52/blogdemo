@@ -4,6 +4,8 @@ This stack represents some realistic usages of Terraform and AWS for reference w
 
 Specifically, this stack will provision the required (outside of the few noted exceptions) resources in AWS along with executing setup code to install and host a Ghost blog on an AWS ec2 instance using a RDS Aurora serverless MySQL database for persistence.
 
+* You should be familiar with AWS billing and cost for resources provisioned before provisioning resources.  The following usage section will provision AWS resources and you will be billed for the expense of those resources. *
+
 ## Setup
 
 An AWS account should be created and credentials should be setup so that Terraform has the appropriate permissions to create the necessary resources.
