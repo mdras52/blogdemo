@@ -17,31 +17,32 @@ resource "aws_subnet" "blog_public_subnet_1" {
   }
 }
 
-resource "aws_subnet" "blog_public_subnet_2" {
+resource "aws_subnet" "blog_private_subnet_1" {
   vpc_id     = aws_vpc.blog_vpc.id
-  cidr_block = "10.0.2.0/24"
-  map_public_ip_on_launch = true
+  cidr_block = "10.0.4.0/24"
+  map_public_ip_on_launch = false
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "Blog Public Subnet 2"
+    Name = "Blog Private Subnet 1"
   }
 }
 
-resource "aws_subnet" "blog_public_subnet_3" {
+resource "aws_subnet" "blog_private_subnet_2" {
   vpc_id     = aws_vpc.blog_vpc.id
-  cidr_block = "10.0.3.0/24"
-  map_public_ip_on_launch = true
+  cidr_block = "10.0.5.0/24"
+  map_public_ip_on_launch = false
   availability_zone = "us-east-1c"
 
   tags = {
-    Name = "Blog Public Subnet 3"
+    Name = "Blog Private Subnet 2"
   }
 }
 
-resource "aws_db_subnet_group" "blog_db_subnet_group" {
-  name       = "blog_db_subnet"
-  subnet_ids = [aws_subnet.blog_public_subnet_2.id, aws_subnet.blog_public_subnet_3.id]
+resource "aws_db_subnet_group" "blog_db_private_subnet_group" {
+  name        = "blog_db_private_subnet_group"
+  subnet_ids  = [aws_subnet.blog_private_subnet_1.id, aws_subnet.blog_private_subnet_2.id]
+  description = "blog_db_private_subnet_group"
 
   tags = {
     Name = "Blog DB Subnet Group"
@@ -71,16 +72,6 @@ resource "aws_route_table" "blog_ig_public_rt" {
 
 resource "aws_route_table_association" "blog_rta_ig_public_subnet_1" {
     subnet_id = aws_subnet.blog_public_subnet_1.id
-    route_table_id = aws_route_table.blog_ig_public_rt.id
-}
-
-resource "aws_route_table_association" "blog_rta_ig_public_subnet_2" {
-    subnet_id = aws_subnet.blog_public_subnet_2.id
-    route_table_id = aws_route_table.blog_ig_public_rt.id
-}
-
-resource "aws_route_table_association" "blog_rta_ig_public_subnet_3" {
-    subnet_id = aws_subnet.blog_public_subnet_3.id
     route_table_id = aws_route_table.blog_ig_public_rt.id
 }
 
@@ -137,15 +128,6 @@ resource "aws_security_group" "blog_db_sec_group" {
     protocol    = "tcp"
     security_groups = [aws_security_group.blog_sec_group_public.id]
   }
-
-# Aurora Serverless cannot be accessed publicly
-  # ingress {
-  #   description = "MYSQL Personal"
-  #   from_port   = 3306
-  #   to_port     = 3306
-  #   protocol    = "tcp"
-  #   cidr_blocks = [var.my_ip]
-  # }
 
   egress {
     from_port   = 0
